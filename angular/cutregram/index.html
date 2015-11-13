@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The genuine Cutregram</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous" />
+</head>
+<body ng-app="cutregram">
+
+    <div class="container">
+        <header>
+            <h1>Cutregram</h1>
+        </header>
+
+        <!-- Show the articles -->
+        <div class="row" ng-controller="PostsCollectionController">
+            <h2>{{ ::msg }}</h2>
+            <!-- Begin Loop -->
+            <div class="box" ng-repeat="post in posts">
+                <a href="#">
+                    <figure>
+                        <img src="" alt=""/>
+                        <caption>{{ post.id }} - {{ post.text }}</caption>
+                    </figure>
+                </a>
+            </div>
+            <!-- End Loop -->
+        </div>
+    </div>
+
+
+    <!-- Loading libraries -->
+    <!-- <script src="//code.jquery.com/jquery-1.11.3.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/PostsCollectionController.js"></script>
+</body>
+</html>
