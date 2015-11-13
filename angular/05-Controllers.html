@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="test">
+    <nav ng-controller="NavBarCtrl">
+        <ul>
+            <li><a href="#">{{ scName1 }}</a></li>
+            <li><a href="#">{{ scName2 }}</a></li>
+            <li><a href="#" ng-click="showMessage()">Show message</a></li>
+        </ul>
+    </nav>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+    <script>
+        //Create module test
+        angular.module("test", []);
+
+        //Contoller to manage the nav bar
+        angular.module("test").controller("NavBarCtrl", function ($scope) {
+
+            //Assign values in the scope for the view
+            $scope.scName1 = "Super-section";
+            $scope.scName2 = "Cool Section";
+
+            //Behaviour of the view in the scope from controller
+            $scope.showMessage = function () {
+                alert("What's up?");
+            };
+
+        });
+    </script>
+</body>
+</html>

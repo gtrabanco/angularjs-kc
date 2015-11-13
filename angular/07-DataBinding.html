@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-app="test">
+
+    <!-- Two way Data Binding and one-time binding -->
+    <div ng-controller="testCtrl">
+        <h1>Two way Data Binding</h1>
+
+        <!-- Two way data binding -->
+        <input type="text" ng-model="twoWay.name" placeholder="Write your name..." />
+        <span>Good night {{ twoWay.name }}</span>
+
+
+        <h1>One way Data Binding</h1>
+
+        <!-- One way data binding -->
+        <input type="text" ng-model="oneWay.name" />
+        <span>Good night {{ ::oneWay.name }} and the value in scope is {{ oneWay.name }}</span>
+        <br />
+        <button ng-click="seeOneWay()">See the value in the model</button>
+
+        <!-- NgModelOptions -->
+        <h1>Example of NgModelOptions</h1>
+
+        <h3>UpdateOn</h3>
+        <!-- UpdateOn -->
+        <input type="text" ng-model="ngModelOptions.name" ng-model-options="{ updateOn: 'blur' }" />
+        <span>Good morning {{ ngModelOptions.name }}!!</span>
+
+        <h3>Debounce in miliseconds always</h3>
+        <input type="text" ng-model="ngModelOptions.petName" ng-model-options="{ debounce: 800 }" />
+        <span>Yours pet name is {{ ngModelOptions.petName }}!!</span>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<script>
+    //Create module test
+    angular.module("test", []);
+
+    //Parent Controller
+    angular.module("test").controller("testCtrl", function ($scope) {
+
+        //Create the objects
+        $scope.twoWay = {};
+        //$scope.oneWay = {name: "Cholo"};
+        $scope.oneWay = {};
+
+        $scope.seeOneWay = function () {
+            alert('The value of oneWay.name in the scope is: ' + $scope.oneWay.name);
+        };
+
+        $scope.$watch(
+                function () { return $scope.oneWay.name; },
+                function (value) {
+                    if (value) {
+                        window.console.log(value);
+                    }
+                });
+
+        //Create a object
+        $scope.ngModelOptions = {};
+    });
+
+</script>
+</body>
+</html>

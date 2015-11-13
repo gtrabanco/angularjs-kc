@@ -1,0 +1,79 @@
+<!-- Auto and manual bootstraping -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<!-- Module "auto" -->
+<div ng-app="auto">
+    <!-- Here all will be administrated by "auto" module -->
+</div>
+
+<!-- Module "manual" -->
+<div id="manual_container">
+    <!-- Here all will be administrated by "manual" module -->
+</div>
+
+    <!-- Button to start "manual" module -->
+    <button id="startManual">Start module</button>
+
+<!-- Load library -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<script>
+    "use strict";
+
+    //Setter of "auto" module
+    angular.module('auto', []);
+
+    //Config phase
+    angular.module('auto').config(function () {
+        window.console.log('Config phase.');
+    });
+
+    //Run phase
+    angular.module('auto').run(function (/*Dependency1,dependency2... or nothing*/) {
+        window.console.log('Run phase');
+    });
+</script>
+
+<script>
+    "use strict";
+
+    //Setter of "auto" module
+    angular.module('manual', []);
+
+    //Config phase "manual" module
+    angular.module('manual').config(function () {
+        window.console.log('Config phase manual module.');
+    });
+
+
+    //Defined to check if manual module can be loaded
+    var manual = true;
+
+    function startManualModule() {
+
+        //Check if manual module can be loaded
+        if (manual) {
+            window.console.log('Loading "manual" module...');
+
+            window.console.log('Getting manual module: ', angular.module('manual'));
+            //Alias of $, $ must not be used "normally..."
+            let manualapp = angular.element('#manual_container');
+
+            angular.bootstrap(manualapp, ["manual" /*, "otherDependency"*/]);
+            manual = false;
+        }
+    }
+
+    //Add event
+    angular.element('#startManual').on('click', function () {
+        startManualModule();
+    });
+</script>
+</body>
+</html>

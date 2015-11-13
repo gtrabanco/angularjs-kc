@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+  <!-- Module "auto" -->
+  <div ng-app="auto">
+      <!-- Here all will be administrated by AngularJS -->
+  </div>
+
+  <!-- Load library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+  <script>
+      "use strict";
+
+      //Setter of "auto" module
+      angular.module('auto', []);
+
+      //Config phase
+      angular.module('auto').config(function () {
+         window.console.log('Config phase.');
+      });
+
+      //Run phase
+      angular.module('auto').run(function (/*Dependency1,dependency2... or nothing*/) {
+          window.console.log('Run phase');
+      });
+  </script>
+</body>
+</html>

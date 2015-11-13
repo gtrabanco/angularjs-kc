@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Worker and Storage</title>
+</head>
+<body>
+
+<script>
+    "use strict";
+
+    if (typeof(Storage) !== "undefined") {
+        window.console.log("Storage supported");
+        sessionStorage.setItem('test', 'A test var created in html5 page');
+    }
+
+    if (typeof(Worker) !== "undefined") {
+        window.console.log("Workers supported");
+    }
+
+    let wkr = new Worker('worker.js');
+    wkr.onmessage = function (data) {
+        console.log('New message from worker: %s', data.data);
+    };
+    wkr.postMessage('You will be dead and not me.');
+
+    window.console.log('In the html5 reading the storage: ', localStorage.getItem('test'));
+</script>
+
+</body>
+</html>

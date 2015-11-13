@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            font-family: "Helvetica Neue";
+
+        }
+    </style>
+</head>
+
+<!-- Module "auto" -->
+<body ng-app="test">
+    <!-- Here all will be administrated by AngularJS -->
+
+    <!-- View Controlled by TestCtrl -->
+    <div ng-controller="TestCtrl"></div>
+
+    <!-- View Controlled by Test2Ctrl -->
+    <div ng-controller="Test2Ctrl"></div>
+
+
+    <!-- Load library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+    <script>
+        "use strict";
+
+        //Setter of "test" module
+        angular.module('test', []);
+
+        //Controller with DI (dependency injectors)
+        // Array inline DI
+        angular.module('test').controller('TestCtrl',
+                [
+                    '$scope',
+                    '$location',
+                    function ($scope, $location) {
+                        //It always need $scope inyector
+                        //debugger;
+                    }]);
+
+        //With $inject property
+        var controller = function ($scope, $location) {
+            //debugger;
+        };
+        controller.$inject = ['$scope', '$location'];
+        angular.module('test').controller('Test2Ctrl', controller);
+
+        //Function params
+        angular.module('test').controller('Test3Ctrl',
+                function ($scope, $location) {
+                   //debugger;
+                });
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div ng-app="test">
+        <div ng-controller="ParentCtrl">
+            <h1>Parent Controller</h1>
+            <!-- <h3>{{ h3Title }}</h3> -->
+            <button ng-click="sendBroadcastMsg()">Send message to my childs</button>
+            <div ng-controller="ChildOneCtrl">
+                <h3>I am a child</h3>
+                <h5>{{ h5Title }}</h5>
+                <button ng-click="sendEmitMsg()">Send Emit</button>
+            </div>
+            <div ng-controller="ChildTwoCtrl">
+                <h3>I am another child</h3>
+                <!-- <h5>{{ h5Title }}</h5> -->
+                <!-- <button>Send Emit</button> -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+    <script>
+        //Create module test
+        angular.module("test", []);
+
+        //Parent Controller
+        angular.module("test").controller("ParentCtrl", function ($scope) {
+            $scope.sendBroadcastMsg = function () {
+                window.console.log('Sending BC');
+                $scope.$broadcast("ParentCtrlBroadcast", "Hello son!");
+            };
+
+            $scope.$on('emitFromSon', function (event, data) {
+                window.console.log('Received a message from my son.');
+            });
+        });
+
+        //ChildOne Controller
+        angular.module("test").controller("ChildOneCtrl", function ($scope) {
+            $scope.$on("ParentCtrlBroadcast", function (event, data) {
+                window.console.log('Receiving BC in ChildOne with: ', data);
+                $scope.h5Title = "Message received from parent";
+
+
+                setTimeout(function () {
+                    $scope.h5Title = "Value changed";
+                    window.console.log('Timeout launched.');
+                }, 1000);
+
+                //alert(data);
+                //event.stopPropagation();
+                event.preventDefault();
+            });
+
+            $scope.sendEmitMsg = function () {
+                window.console.log("Sending event from ChildOne to Dad");
+                $scope.$emit("emitFromSon", "Ey Dad!");
+            }
+        });
+
+        //ChildTwo Controller
+        angular.module("test").controller("ChildTwoCtrl", function ($scope) {
+            $scope.$on("ParentCtrlBroadcast", function (event, data) {
+                window.console.log('Receiving BC in ChildTwo with: ', data);
+                //$scope.h5Title = data;
+                //alert(data);
+            });
+
+            $scope.$on('emitFromSon', function (event, data) {
+                window.console.log('The second child log a parent message');
+            });
+        });
+
+    </script>
+</body>
+</html>
