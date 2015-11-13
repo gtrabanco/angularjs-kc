@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+    <div ng-controller="testCtrl"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<script>
+    // Module
+    angular.module('test', []);
+
+    // Service
+    // $q service injected to work with deferred objects
+    angular.module('test').service('Deferred', function ($q) {
+
+        //Make an async operation
+        this.giveMeAPromise = function (bool, timeout) {
+
+            //Deferred object
+            var deferred = $q.defer();
+
+            //Here is where we work the code
+
+            setTimeout(function () {
+                if (typeof(bool) !== "undefined" && bool) {
+                    return deferred.resolve('Resolved. All right.');
+                } else {
+                    return deferred.reject('Resolved. All wrong.');
+                }
+
+            }, timeout || 1500);
+
+            //Return the promise
+            return deferred.promise;
+        };
+    });
+
+    //Controller
+    angular.module('test').controller('testCtrl', function ($scope, Deferred) {
+        Deferred.giveMeAPromise(true).then(
+                function (resolve) {
+                    window.console.log('All good with the message: ', resolve);
+                }, function (reject) {
+                    window.console.log('All wrong with the message: ', reject);
+                });
+
+        Deferred.giveMeAPromise(false, 500).then(
+                function (resolve) {
+                    window.console.log('All good with the message: ', resolve);
+                }, function (reject) {
+                    window.console.log('All wrong with the message: ', reject);
+                });
+    });
+</script>
+</body>
+</html>

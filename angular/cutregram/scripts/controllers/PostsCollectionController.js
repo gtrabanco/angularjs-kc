@@ -26,13 +26,17 @@ var postCollection = ['$scope', '$http', function ($scope, $http) {
      }
      */
 
-    $http.get('').then(function (response) {
+    $http.get('http://cutregram-sp.appspot.com/api/1/posts').then(
+        function (response) {
 
-        //All Ok
+            //All Ok Code
+            $scope.posts = response.data;
+            //window.console.log(response.data);
 
     }, function (error) {
 
-        //Something Wrong
+        //Something Wrong Code
+
     });
 }];
 var app = angular.module('cutregram');
