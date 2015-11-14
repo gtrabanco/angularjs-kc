@@ -1,4 +1,5 @@
 .idea
 .DS*
 .*
-apikey*
+Apikey.js
+apikey.js

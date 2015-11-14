@@ -1,0 +1,21 @@
+<!-- Show the articles -->
+<header>
+    <h2>My Posts</h2>
+</header>
+
+<!-- <div class="row" ng-controller="PostsCollectionController"> -->
+<div>
+    <!-- Begin Loop -->
+    <div class="box" ng-repeat="post in posts" ng-show="posts.length">
+        <a href="#">
+            <figure>
+                <img ng-src="{{ post.image_url }}" ng-if="post.image_url" alt="{{ post.text }}" class="img-rounded"/>
+                <caption>{{ post.author }} - {{ post.text }}</caption>
+            </figure>
+            <div class="info">
+                <span><img src="images/like.png" width="40px" height="40px" /> {{ post.likes }}</span> <span><img src="images/dislike.png" alt="" width="40px" height="40px" /> {{ post.dislikes }}</span>
+            </div>
+        </a>
+    </div>
+    <!-- End Loop -->
+</div>

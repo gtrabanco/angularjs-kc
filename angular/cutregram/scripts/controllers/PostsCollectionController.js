@@ -1,7 +1,8 @@
 //"use strict";
 
-var postCollection = ['$scope', '$http', function ($scope, $http) {
+var postCollection = ['$scope', '$http', 'Posts', function ($scope, $http, Posts) {
 
+    $scope.posts = Posts.data;
     /*
     $scope.posts = [{
         id: 1,
@@ -26,6 +27,7 @@ var postCollection = ['$scope', '$http', function ($scope, $http) {
      }
      */
 
+    /*
     $http.get('http://cutregram-sp.appspot.com/api/1/posts').then(
         function (response) {
 
@@ -38,6 +40,8 @@ var postCollection = ['$scope', '$http', function ($scope, $http) {
         //Something Wrong Code
 
     });
+    //*/
 }];
-var app = angular.module('cutregram');
-app.controller('PostsCollectionController', postCollection);
+angular.
+    module('cutregram').
+    controller('PostsCollectionController', postCollection);

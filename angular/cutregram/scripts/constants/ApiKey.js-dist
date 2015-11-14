@@ -1,0 +1,3 @@
+//We'll define the app properties
+//Constant because we'll need it in config phase
+angular.module('cutregram').constant('ApiKey','your api key');
