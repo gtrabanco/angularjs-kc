@@ -1,0 +1,18 @@
+<figure>
+    <!-- post because in a directive we set "post" as bidirectional info -->
+    <a href="#">
+        <img ng-src="{{ post.image_url }}" ng-if="post.image_url" alt="{{ post.text }}" class="img-rounded"/>
+    </a>
+    <caption>{{ post.author | Sign : post.created }}</caption>
+</figure>
+<div class="info">
+    <div class="desc">
+        <p>{{ post.text | wordwrap : 13 : '': true : 1}}...</p>
+    </div>
+    <div class="liked">
+        <span class="badge" ng-click="addLike()"><img src="images/like.svg" /> {{ post.likes }}</span>
+    </div>
+    <div class="dislikes">
+        <span class="badge" ng-click="addDislike()">{{ post.dislikes }} <img src="images/dislike.svg" alt="" /></span>
+    </div>
+</div>

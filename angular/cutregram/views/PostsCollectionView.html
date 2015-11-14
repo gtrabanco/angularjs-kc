@@ -1,21 +1,50 @@
 <!-- Show the articles -->
 <header>
-    <h2>All posts</h2>
+    <h2>{{ title }}</h2>
 </header>
+
+<form action="#" class="form-inline">
+    <div class="form-group">
+        <label for="authorFilter">Author</label>
+        <input type="text" ng-model="authorFilter" />
+    </div>
+</form>
 
 <!-- <div class="row" ng-controller="PostsCollectionController"> -->
 <div>
-    <!-- Begin Loop -->
-    <div class="box" ng-repeat="post in posts">
-        <a href="#">
-            <figure>
+    <!--- Begin old code -->
+    <!-- Begin Loop -- >
+    <div class="box" ng-repeat="post in posts | filter: { author: authorFilter }">
+        <figure>
+            <a href="#">
                 <img ng-src="{{ post.image_url }}" ng-if="post.image_url" alt="{{ post.text }}" class="img-rounded"/>
-                <caption>{{ post.author }} - {{ post.text }}</caption>
-            </figure>
-            <div class="info">
-                <span><img src="images/like.png" width="40px" height="40px" /> {{ post.likes }}</span> <span><img src="images/dislike.png" alt="" width="40px" height="40px" /> {{ post.dislikes }}</span>
+            </a>
+            <caption>{{ post.author | Sign : post.created }}</caption>
+        </figure>
+        <div class="info">
+            <div class="desc">
+                <p>{{ post.text | wordwrap : 13 : '': true : 1}}...</p>
             </div>
-        </a>
+            <div class="liked">
+                <span class="badge" ng-click="addLike(post)"><img src="images/like.svg" /> {{ post.likes }}</span>
+            </div>
+            <div class="dislikes">
+                <span class="badge" ng-click="addDislike(post)">{{ post.dislikes }} <img src="images/dislike.svg" alt="" /></span>
+            </div>
+        </div>
     </div>
     <!-- End Loop -->
+    <!-- End old code -->
+
+
+
+
+
+    <!-- post in the post="post" between the " is the post of the loop -- >
+    <div class="box" ng-repeat="post in posts | filter:{author:authorFilter}" post-element post="post"></div>
+    <!-- -->
+
+    <!-- Alternative way -->
+    <post-element class="box" ng-repeat="post in posts | filter:{author:authorFilter}" post="post"></post-element>
+    <!-- -->
 </div>

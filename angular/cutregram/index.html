@@ -5,6 +5,7 @@
     <title>The genuine Cutregram</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="styles/cutregram.css" />
+    <link rel="stylesheet" href="styles/loading-bar.min.css" />
 </head>
 <body ng-app="cutregram">
 
@@ -36,6 +37,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
 
+    <!-- Load Third party dependencies -->
+    <script src="vendor/loading-bar.min.js"></script>
+
     <!-- app.js -->
     <script src="scripts/app.js"></script>
 
@@ -46,9 +50,15 @@
     <!-- Providers -->
     <script src="scripts/providers/Backend.js"></script>
 
+    <!-- Filters -->
+    <script src="scripts/filters/Sign.js"></script>
+    <script src="scripts/filters/wordwrap.js"></script>
+
     <!-- Controllers -->
     <script src="scripts/controllers/PostsCollectionController.js"></script>
     <script src="scripts/controllers/NavController.js"></script>
 
+    <!-- Directives -->
+    <script src="scripts/directives/postElement.js"></script>
 </body>
 </html>

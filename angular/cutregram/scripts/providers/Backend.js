@@ -30,6 +30,8 @@ angular.module('cutregram').provider('Backend', ['$httpProvider', function ($htt
         $get:['$http', function ($http) {
 
             return {
+
+                //Get all photos (posts)
                 getAllPosts: function () {
                     //window.console.log('Getting all posts');
                     return $http.get(apiUrl + '/posts', {
@@ -37,11 +39,21 @@ angular.module('cutregram').provider('Backend', ['$httpProvider', function ($htt
                     });
                 },
 
+                //Get just my own photos (posts)
                 getMyPosts: function () {
                     //window.console.log('Getting My Posts');
                     return $http.get(apiUrl + '/posts', {
                         cache: true
                     });
+                },
+
+                //Adding a like to a postId
+                addLike: function (postId) {
+                    return $http.post(apiUrl + '/posts/' + postId + '/like');
+                },
+
+                addDislike: function (postId) {
+                    return $http.post(apiUrl + '/posts/' + postId + '/dislike');
                 }
             }
         }]

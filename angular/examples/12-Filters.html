@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+<div ng-controller="testCtrl">
+    <h1>Filters example</h1>
+    <p>Currency (38967392.84888) <b>{{ 38967392.84888 | currency }}</b></p>
+    <p>Currency custom (135542543738 in USD 4 decimals) <b>{{ 135542543738 | currency : 'USD$' : 4 }}</b></p>
+    <p>Date medium <b>{{ date | date: 'medium' }}</b></p>
+    <p>Collection ordered (user uppercase) <b>ng-repeat user in users | orderBy: 'user' | uppercase</b></p>
+    <ul>
+        <li ng-repeat="user in users | orderBy:'user'">
+            {{ user.user | uppercase }}
+        </li>
+    </ul>
+
+    <p>Collection inverse ordered (-user) <b>ng-repeat user in users | orderBy: '-user' | lowercase</b></p>
+    <ul>
+        <li ng-repeat="user in users | orderBy:'-user'">
+            {{ user.user | lowercase }}
+        </li>
+    </ul>
+
+    <p>Collection with filer <b>ng-repeat user in users | orderBy: 'user' | filter:{user:'ro'}</b></p>
+    <ul>
+        <li ng-repeat="user in users | orderBy:'user' | filter: {user: 'ro'}">
+            {{ user.user }}
+        </li>
+    </ul>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<!-- -->
+    <script src="//code.angularjs.org/1.4.7/i18n/angular-locale_es-es.js"></script>
+<!-- -->
+<script>
+    // Module
+    angular.module('test', []);
+
+    //Controller
+    var testCtrl = ['$scope', function ($scope) {
+        $scope.date = new Date();
+
+        $scope.users = [
+            { user: 'Tom' },
+            { user: 'Ann' },
+            { user: 'Jess' },
+            { user: 'Wayne' },
+            { user: 'David' },
+            { user: 'Dick' },
+            { user: 'Rick' },
+            { user: 'José' },
+            { user: 'Cañizares' },
+            { user: 'Nick' },
+            { user: 'Rodolfo'},
+            { user: 'Rodrígo'}
+        ];
+    }];
+    angular.module('test').controller('testCtrl', testCtrl);
+</script>
+</body>
+</html>

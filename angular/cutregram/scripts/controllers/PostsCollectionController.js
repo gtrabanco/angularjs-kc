@@ -1,9 +1,28 @@
 //"use strict";
 
-var postCollection = ['$scope', '$http', 'Posts', function ($scope, $http, Posts) {
+//var postCollection = ['$scope', '$http', 'Posts', 'Backend', 'ViewParams', function ($scope, $http, Posts, Backend, ViewParams) {
+var postCollection = ['$scope', '$http', 'Posts', 'ViewParams', function ($scope, $http, Posts, ViewParams) {
 
-    window.console.log(Posts.data);
+    //window.console.log($scope);
+    $scope.title = ViewParams.title;
     $scope.posts = Posts.data;
+
+    //window.console.log(Posts.data);
+    //$scope.posts = Posts.data;
+    //$scope.addLike = function (post) {
+    //    Backend.addLike(post.id).then(
+    //        function (response) {
+    //            post.likes++;
+    //        }
+    //    );
+    //};
+    //$scope.addDislike = function (post) {
+    //    Backend.addDislike(post.id).then(
+    //        function (response) {
+    //            post.dislikes++;
+    //        }
+    //    );
+    //};
     /*
     $scope.posts = [{
         id: 1,

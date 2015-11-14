@@ -1,4 +1,4 @@
-angular.module('cutregram', ['ngRoute']);
+angular.module('cutregram', ['ngRoute', 'angular-loading-bar']);
 
 //window.console.log('app.js: The apikey is ', apikey);
 
@@ -39,6 +39,12 @@ angular.module('cutregram').config(function ($routeProvider) {
             Posts: ['Backend', function (Backend) {
                 //window.console.log(Backend.getAllPosts());
                 return Backend.getAllPosts();
+            }],
+
+            ViewParams: [function () {
+                return {
+                    title: 'All Posts'
+                }
             }]
         }
     });
@@ -55,6 +61,12 @@ angular.module('cutregram').config(function ($routeProvider) {
             //}]
             Posts: ['Backend', function (Backend) {
                 return Backend.getMyPosts();
+            }],
+
+            ViewParams: [function () {
+                return {
+                    title: 'My Posts'
+                }
             }]
         }
     });
