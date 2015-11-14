@@ -6,7 +6,7 @@
 <!-- <div class="row" ng-controller="PostsCollectionController"> -->
 <div>
     <!-- Begin Loop -->
-    <div class="box" ng-repeat="post in posts" ng-show="posts.length">
+    <div class="box" ng-repeat="post in posts">
         <a href="#">
             <figure>
                 <img ng-src="{{ post.image_url }}" ng-if="post.image_url" alt="{{ post.text }}" class="img-rounded"/>

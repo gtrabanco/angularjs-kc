@@ -2,6 +2,7 @@
 
 var postCollection = ['$scope', '$http', 'Posts', function ($scope, $http, Posts) {
 
+    window.console.log(Posts.data);
     $scope.posts = Posts.data;
     /*
     $scope.posts = [{

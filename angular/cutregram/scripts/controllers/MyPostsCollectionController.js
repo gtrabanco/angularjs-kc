@@ -2,8 +2,9 @@
 
 var myPostCollection = ['$scope', '$http', 'Posts', function ($scope, $http, Posts) {
 
-    //$scope.posts = Posts.data;
-    //*
+    $scope.posts = Posts.data;
+
+    /*
     $http.get('http://cutregram-sp.appspot.com/api/1/posts/me').then(
         function (response) {
 
