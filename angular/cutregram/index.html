@@ -23,6 +23,11 @@
                 <li role="presentation" ng-class="{ 'active': routeIsMy() }">
                     <a href="#/my">My posts</a>
                 </li>
+                <!-- -- >
+                <li role="presentation" ng-class="{ 'active': routeIsAdd() }">
+                    <a href="#/add">Add posts</a>
+                </li>
+                <!-- -->
             </ul>
         </nav>
 
@@ -39,6 +44,9 @@
 
     <!-- Load Third party dependencies -->
     <script src="vendor/loading-bar.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+
+
 
     <!-- app.js -->
     <script src="scripts/app.js"></script>
@@ -56,7 +64,9 @@
 
     <!-- Controllers -->
     <script src="scripts/controllers/PostsCollectionController.js"></script>
+    <script src="scripts/controllers/MyPostsCollectionController.js"></script>
     <script src="scripts/controllers/NavController.js"></script>
+    <script src="scripts/controllers/DetailPostController.js"></script>
 
     <!-- Directives -->
     <script src="scripts/directives/postElement.js"></script>

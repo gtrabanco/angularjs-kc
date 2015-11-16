@@ -16,13 +16,18 @@ angular.module('cutregram').
 
             //Communications interface
             scope: {
-                post: '=' //With "=" bidirectional link
+                post: '=', //With "=" bidirectional link
+                onPostClick: '&' //With "&" notification from directive to fathers scope
             },
 
             //Logic of the directive. We can manipulate the DOM
             link: function (scope) {
 
                 //window.console.log('Link in the directive');
+
+                scope.notifyClick = function () {
+                    scope.onPostClick({ postId: scope.post.id });
+                };
 
                 scope.addLike = function () {
                     Backend.addLike(scope.post.id).then(

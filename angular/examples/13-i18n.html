@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+<div ng-controller="testCtrl">
+    <h1>Translate example</h1>
+    <p>As filter: <b><span>{{ 'HELLO' | translate }}</span></b></p>
+    <p>As directive: <b><span translate="HELLO"></span></b></p>
+    <p>As service: <b><span>{{ example }}</span></b></p>
+    <p><button ng-click="switchLang()">{{ 'CHANGE_LANG' | translate}}</button></p>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<!-- -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js"></script>
+
+<!-- -->
+<script>
+    // Module
+    angular.module('test', ['pascalprecht.translate']);
+
+    angular.module('test').config(['$translateProvider', function ($translateProvider) {
+        $translateProvider.translations('es', {
+            'HELLO': 'Hola mundo!',
+            'BANG': 'Español',
+            'CHANGE_LANG': 'Change to english'
+        });
+
+        $translateProvider.translations('en', {
+            'HELLO': 'Hello world!',
+            'BANG': 'English',
+            'CHANGE_LANG': 'Cambiar a español'
+
+        });
+
+        $translateProvider.determinePreferredLanguage();
+        //$translateProvider.useSanitizeValueStrategy(null);
+    }]);
+
+
+
+
+
+    //Controller
+    var testCtrl = ['$scope', '$translate', function ($scope, $translate) {
+
+        //Switch language at runtime
+        var switchLang = 'en';
+        $scope.switchLang = function () {
+            switch (switchLang) {
+                case 'en':
+                    switchLang = 'es';
+                    break;
+
+                default:
+                    switchLang = 'en';
+            }
+
+            window.console.log('Changed language to: ', switchLang);
+            $translate.use(switchLang);
+        };
+
+        $translate(['HELLO', 'BANG']).then(
+                function (translations) {
+                    window.console.log(translations.BANG);
+                    $scope.example = translations.BANG;
+                }
+        )
+
+    }];
+    angular.module('test').controller('testCtrl', testCtrl);
+</script>
+</body>
+</html>

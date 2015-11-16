@@ -42,7 +42,7 @@ angular.module('cutregram').provider('Backend', ['$httpProvider', function ($htt
                 //Get just my own photos (posts)
                 getMyPosts: function () {
                     //window.console.log('Getting My Posts');
-                    return $http.get(apiUrl + '/posts', {
+                    return $http.get(apiUrl + '/posts/me', {
                         cache: true
                     });
                 },
@@ -52,8 +52,26 @@ angular.module('cutregram').provider('Backend', ['$httpProvider', function ($htt
                     return $http.post(apiUrl + '/posts/' + postId + '/like');
                 },
 
+                /**
+                 * Adding a dislike to postId
+                 * @param postId
+                 * @returns {HttpPromise}
+                 */
                 addDislike: function (postId) {
                     return $http.post(apiUrl + '/posts/' + postId + '/dislike');
+                },
+
+                /**
+                 * Get a post with the postId
+                 * @param postId
+                 * @returns {HttpPromise}
+                 */
+                getPost: function (postId) {
+                    return $http.get(apiUrl + '/posts/' + postId);
+                },
+
+                sendComment: function (idPost, comment) {
+                    return $http.post(apiUrl + '/posts/' + idPost + '/comments', comment);
                 }
             }
         }]

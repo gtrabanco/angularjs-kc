@@ -1,11 +1,41 @@
 //"use strict";
 
 //var postCollection = ['$scope', '$http', 'Posts', 'Backend', 'ViewParams', function ($scope, $http, Posts, Backend, ViewParams) {
-var postCollection = ['$scope', '$http', 'Posts', 'ViewParams', function ($scope, $http, Posts, ViewParams) {
+var postCollection = ['$scope', '$http', 'Posts', 'ViewParams', '$location', function ($scope, $http, Posts, ViewParams, $location) {
 
     //window.console.log($scope);
     $scope.title = ViewParams.title;
-    $scope.posts = Posts.data;
+
+    //We need to handle Post because the pagination
+    //$scope.posts = Posts.data;
+    var posts = Posts.data;
+
+    //Pagination properties
+    $scope.pagination = {
+
+        //Page change
+        pageChange: function () {
+            var first = ($scope.pagination.currentPage - 1) * $scope.pagination.pageElements;
+            var last = first + $scope.pagination.pageElements;
+
+            $scope.posts = posts.slice(first, last);
+        },
+
+        currentPage: 1,
+
+        totalPosts: posts.length,
+
+        //Elements by page
+        pageElements: 5
+
+    };
+
+    //Force the first page to get results at start
+    $scope.pagination.pageChange();
+
+    $scope.navigate = function (postId) {
+        $location.path('/details/' + postId);
+    };
 
     //window.console.log(Posts.data);
     //$scope.posts = Posts.data;
