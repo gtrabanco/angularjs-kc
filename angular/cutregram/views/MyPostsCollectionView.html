@@ -1,0 +1,11 @@
+<!-- Show the articles -->
+<header>
+    <h2>{{ ::title }}</h2>
+</header>
+
+<!-- <div class="row" ng-controller="PostsCollectionController"> -->
+<div>
+    <!-- Begin Loop -->
+    <post-element class="box" ng-repeat="post in posts" post="post"></post-element>
+    <!-- End Loop -->
+</div>

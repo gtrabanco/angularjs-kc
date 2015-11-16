@@ -1,0 +1,47 @@
+<button class="btn btn-link" ng-click="back()">< Go Back</button>
+<article>
+    <header>
+        <h4>{{ ::post.text }}</h4>
+    </header>
+    <!--
+    <div class="social">
+        <div class="liked">
+            <span class="badge" ng-click="addLike()"><img src="images/like.svg" /> {{ post.likes }}</span>
+        </div>
+        <div class="dislikes">
+            <span class="badge" ng-click="addDislike()">{{ post.dislikes }} <img src="images/dislike.svg" alt="" /></span>
+        </div>
+    </div>
+    -->
+    <img src="{{ post.image_url }}" alt="{{ post.text }}" class="img-thumbnail" width="300px"/>
+    <footer>
+        <small>{{ ::post.author | Sign: post.created }}</small>
+        <p>Likes <span class="badge">{{ post.likes }}</span> | Dislikes <span class="badge">{{ post.dislikes }}</span></p>
+    </footer>
+</article>
+
+<!-- Comments -->
+<div>
+    <!-- Colection of comments -->
+    <div class="list-group">
+        <header>
+            <h4>Comments</h4>
+        </header>
+
+        <!-- Form to add comments -->
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="inputComment" class="sr-only">Comment</label>
+                <input type="text" class="form-control" name="inputComment" id="inputComment" placeholder="Your comment..." ng-model="inputComment" />
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="sendComment()">Comment</button>
+        </form>
+
+        <!-- Comments -->
+        <div class="list-group-item" ng-repeat="comment in post.comments | orderBy:'-created'">
+            <h4 class="list-group-item-heading">{{ ::comment.text }}</h4>
+            <p class="list-group-item-text">{{ ::comment.author | Sign:comment.created }}</p>
+        </div>
+    </div>
+
+</div>

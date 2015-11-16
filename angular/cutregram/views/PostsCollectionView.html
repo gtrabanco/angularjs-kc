@@ -1,0 +1,63 @@
+<!-- Show the articles -->
+<header>
+    <h2>{{ ::title }}</h2>
+</header>
+
+<form action="#" class="form-inline">
+    <div class="form-group">
+        <label for="authorFilter">Author</label>
+        <input type="text" ng-model="authorFilter" />
+    </div>
+</form>
+
+<!-- <div class="row" ng-controller="PostsCollectionController"> -->
+<div>
+    <!--- Begin old code -->
+    <!-- Begin Loop -- >
+    <div class="box" ng-repeat="post in posts | filter: { author: authorFilter }">
+        <figure>
+            <a href="#">
+                <img ng-src="{{ post.image_url }}" ng-if="post.image_url" alt="{{ post.text }}" class="img-rounded"/>
+            </a>
+            <caption>{{ post.author | Sign : post.created }}</caption>
+        </figure>
+        <div class="info">
+            <div class="desc">
+                <p>{{ post.text | wordwrap : 13 : '': true : 1}}...</p>
+            </div>
+            <div class="liked">
+                <span class="badge" ng-click="addLike(post)"><img src="images/like.svg" /> {{ post.likes }}</span>
+            </div>
+            <div class="dislikes">
+                <span class="badge" ng-click="addDislike(post)">{{ post.dislikes }} <img src="images/dislike.svg" alt="" /></span>
+            </div>
+        </div>
+    </div>
+    <!-- End Loop -->
+    <!-- End old code -->
+
+
+
+
+
+    <!-- post in the post="post" between the " is the post of the loop -- >
+    <div class="box" ng-repeat="post in posts | filter:{author:authorFilter}" post-element post="post"></div>
+    <!-- -->
+
+    <!-- Alternative way -->
+    <post-element class="box" ng-repeat="post in posts | filter:{author:authorFilter}" post="post" on-post-click="navigate(postId)"></post-element>
+    <!-- -->
+
+    <!-- Pagination control -->
+    <div class="paginationBox row">
+        <uib-pagination total-items="pagination.totalPosts"
+                        ng-change="pagination.pageChange()"
+                        ng-model="pagination.currentPage"
+                        items-per-page="pagination.pageElements"
+                        boundary-links="true"
+                first-text="&lt;&lt;"
+                last-text="&gt;&gt;"
+                next-text="&gt;"
+                previous-text="&lt;"></uib-pagination>
+    </div>
+</div>

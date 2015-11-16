@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+<div ng-controller="testCtrl">
+    <p>Data from <b>service</b>: {{ servValue }}</p>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<script>
+    // Module
+    angular.module('test', []);
+
+    // Service
+    angular.module('test').service('TestService', function () {
+        //Function is a class so here we must use this
+        this.myFunction = function () {
+            return 'Public func in a service';
+        }
+    });
+
+    //Controller
+    angular.module('test').controller('testCtrl', function ($scope, TestService) {
+
+        //Value from a service
+        $scope.servValue = TestService.myFunction();
+    });
+</script>
+</body>
+</html>

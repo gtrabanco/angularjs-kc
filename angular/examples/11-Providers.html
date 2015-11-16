@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+<div ng-controller="testCtrl">
+    <p>Data from <b>provider</b>: {{ dataFromProvider }}</p>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<script>
+    // Module
+    angular.module('test', []);
+
+    // Service
+    angular.module('test').provider('TestPrv', function () {
+        var msg = 'No msg';
+
+        //Function is a class so here we must use this
+        return {
+            configMsg: function (value) {
+                window.console.log('Called in the config');
+                msg = value;
+            },
+            $get: [/* 'Dependency', */ function (/* Dependency */) {
+                return {
+                    getMsg: function () {
+                        return msg;
+                    }
+                }
+            }]
+        };
+    });
+
+    angular.
+            module('test').
+            config(['TestPrvProvider', function (TestPrvProvider) {
+                TestPrvProvider.configMsg('Setting a message to a provider in a config phase.');
+            }]);
+
+    //Controller
+    var testCtrl = ['$scope', 'TestPrv', function ($scope, TestPrv) {
+        $scope.dataFromProvider = TestPrv.getMsg();
+    }];
+    angular.module('test').controller('testCtrl', testCtrl);
+</script>
+</body>
+</html>

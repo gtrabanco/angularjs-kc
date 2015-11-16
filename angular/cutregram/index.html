@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The genuine Cutregram</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="styles/cutregram.css" />
+    <link rel="stylesheet" href="styles/loading-bar.min.css" />
+</head>
+<body ng-app="cutregram">
+
+    <div class="container">
+        <header>
+            <h1>Cutregram</h1>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav ng-controller="NavController">
+            <ul class="nav nav-tabs">
+                <li role="presentation" ng-class="{ 'active': routeIsAll() }">
+                    <a href="#/all">All posts</a>
+                </li>
+                <li role="presentation" ng-class="{ 'active': routeIsMy() }">
+                    <a href="#/my">My posts</a>
+                </li>
+                <!-- -- >
+                <li role="presentation" ng-class="{ 'active': routeIsAdd() }">
+                    <a href="#/add">Add posts</a>
+                </li>
+                <!-- -->
+            </ul>
+        </nav>
+
+        <!-- Container of the views -->
+        <section ng-view></section>
+
+    </div>
+
+
+    <!-- Loading libraries -->
+    <!-- <script src="//code.jquery.com/jquery-1.11.3.min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+
+    <!-- Load Third party dependencies -->
+    <script src="vendor/loading-bar.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+
+
+
+    <!-- app.js -->
+    <script src="scripts/app.js"></script>
+
+    <!-- Constants -->
+    <script src="scripts/constants/Properties.js"></script>
+    <script src="scripts/constants/ApiKey.js"></script>
+
+    <!-- Providers -->
+    <script src="scripts/providers/Backend.js"></script>
+
+    <!-- Filters -->
+    <script src="scripts/filters/Sign.js"></script>
+    <script src="scripts/filters/wordwrap.js"></script>
+
+    <!-- Controllers -->
+    <script src="scripts/controllers/PostsCollectionController.js"></script>
+    <script src="scripts/controllers/MyPostsCollectionController.js"></script>
+    <script src="scripts/controllers/NavController.js"></script>
+    <script src="scripts/controllers/DetailPostController.js"></script>
+
+    <!-- Directives -->
+    <script src="scripts/directives/postElement.js"></script>
+</body>
+</html>

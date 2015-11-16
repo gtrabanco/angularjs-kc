@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+<div ng-controller="testCtrl">
+    <p>Data from <b>factory</b>: {{ facValue }}</p>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
+<script>
+    // Module
+    angular.module('test', []);
+
+    // Service
+    angular.module('test').factory('TestFactory', function () {
+        //Function is a class so here we must use this
+        return 'Factory value';
+    });
+
+    //Controller
+    angular.module('test').controller('testCtrl', function ($scope, TestFactory) {
+
+        //Value from a service
+        $scope.facValue = TestFactory;
+    });
+</script>
+</body>
+</html>

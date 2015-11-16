@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises or deferred objects (esp. objetos diferidos)</title>
+</head>
+<body ng-app="test">
+<div ng-controller="testCtrl">
+    <h1>Translate example</h1>
+    <p>As filter: <b><span>{{ 'HELLO' | translate }}</span></b></p>
+    <p>As directive: <b><span translate="HELLO"></span></b></p>
+    <p>As service: <b><span>{{ example }}</span></b></p>
+    <p><button ng-click="switchLang()">{{ 'CHANGE_LANG' | translate}}</button></p>
+    <p>Currency (1893,89): {{ 1893.89 | currency }}</p>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js"></script>
+<script src="tmhDynamicLocale.js"></script>
+<script>
+    // Module
+    angular.module('test', ['pascalprecht.translate', 'tmh.dynamicLocale']);
+
+    //Config Dynamic locale
+    angular.module('test').config(['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
+        tmhDynamicLocaleProvider.localeLocationPattern('https://code.angularjs.org/1.2.20/i18n/angular-locale_{{locale}}.js');
+    }]);
+
+
+    //Config angular-translate
+    angular.module('test').config(['$translateProvider', function ($translateProvider) {
+        $translateProvider.translations('es', {
+            'HELLO': 'Hola mundo!',
+            'BANG': 'Español',
+            'CHANGE_LANG': 'Change to english'
+        });
+
+        $translateProvider.translations('en', {
+            'HELLO': 'Hello world!',
+            'BANG': 'English',
+            'CHANGE_LANG': 'Cambiar a español'
+        });
+
+
+        $translateProvider.determinePreferredLanguage();
+        //$translateProvider.preferredLanguage('en');
+        //$translateProvider.useSanitizeValueStrategy('sanitizer');
+    }]);
+
+
+    //*
+    //Run phase
+    //Config angular-translate
+    angular.module('test').run(['$translate', 'tmhDynamicLocale', function ($translate, tmhDynamicLocale) {
+        tmhDynamicLocale.set($translate.preferredLanguage());
+        //$translateProvider.preferredLanguage('en');
+        //$translateProvider.useSanitizeValueStrategy('sanitizer');
+    }]);
+    //*/
+
+
+
+
+
+    //Controller
+    var testCtrl = ['$scope', '$translate', 'tmhDynamicLocale', function ($scope, $translate, tmhDynamicLocale) {
+
+        //Switch language at runtime
+        var switchLang = 'es';
+        $scope.switchLang = function () {
+            switch (switchLang) {
+                case 'en':
+                    switchLang = 'es';
+                    break;
+
+                default:
+                    switchLang = 'en';
+            }
+
+            //window.console.log('Changed language to: ', switchLang);
+            $translate.use(switchLang);
+            tmhDynamicLocale.set(switchLang);
+            $scope.servTranslate();
+        };
+
+        //Translate as a service
+        ($scope.servTranslate = function () {
+            $translate(['HELLO', 'BANG']).then(
+                    function (translations) {
+                        //window.console.log(translations.BANG);
+                        $scope.example = translations.BANG;
+                    }
+            )
+        })();
+
+    }];
+    angular.module('test').controller('testCtrl', testCtrl);
+</script>
+</body>
+</html>
