@@ -21,14 +21,14 @@
     // Module
     angular.module('test', ['pascalprecht.translate', 'tmh.dynamicLocale']);
 
-    //Config locale
+    //Config Dynamic locale
     angular.module('test').config(['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
         tmhDynamicLocaleProvider.localeLocationPattern('https://code.angularjs.org/1.2.20/i18n/angular-locale_{{locale}}.js');
     }]);
 
 
     //Config angular-translate
-    angular.module('test').config(['$translateProvider', 'tmhDynamicLocaleProvider', function ($translateProvider, tmhDynamicLocaleProvider) {
+    angular.module('test').config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('es', {
             'HELLO': 'Hola mundo!',
             'BANG': 'Español',
@@ -39,7 +39,6 @@
             'HELLO': 'Hello world!',
             'BANG': 'English',
             'CHANGE_LANG': 'Cambiar a español'
-
         });
 
 
@@ -49,6 +48,7 @@
     }]);
 
 
+    /*
     //Run phase
     //Config angular-translate
     angular.module('test').run(['$translate', 'tmhDynamicLocale', function ($translate, tmhDynamicLocale) {
@@ -56,6 +56,7 @@
         //$translateProvider.preferredLanguage('en');
         //$translateProvider.useSanitizeValueStrategy('sanitizer');
     }]);
+    //*/
 
 
 
