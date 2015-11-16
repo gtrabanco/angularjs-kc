@@ -11,18 +11,24 @@
     <p>As directive: <b><span translate="HELLO"></span></b></p>
     <p>As service: <b><span>{{ example }}</span></b></p>
     <p><button ng-click="switchLang()">{{ 'CHANGE_LANG' | translate}}</button></p>
+    <p>Currency (1893,89): {{ 1893.89 | currency }}</p>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular.min.js"></script>
-<!-- -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.8.1/angular-translate.min.js"></script>
-
-<!-- -->
+<script src="tmhDynamicLocale.js"></script>
 <script>
     // Module
-    angular.module('test', ['pascalprecht.translate']);
+    angular.module('test', ['pascalprecht.translate', 'tmh.dynamicLocale']);
 
-    angular.module('test').config(['$translateProvider', function ($translateProvider) {
+    //Config locale
+    angular.module('test').config(['tmhDynamicLocaleProvider', function (tmhDynamicLocaleProvider) {
+        tmhDynamicLocaleProvider.localeLocationPattern('https://code.angularjs.org/1.2.20/i18n/angular-locale_{{locale}}.js');
+    }]);
+
+
+    //Config angular-translate
+    angular.module('test').config(['$translateProvider', 'tmhDynamicLocaleProvider', function ($translateProvider, tmhDynamicLocaleProvider) {
         $translateProvider.translations('es', {
             'HELLO': 'Hola mundo!',
             'BANG': 'Español',
@@ -36,8 +42,19 @@
 
         });
 
+
         $translateProvider.determinePreferredLanguage();
-        //$translateProvider.useSanitizeValueStrategy(null);
+        //$translateProvider.preferredLanguage('en');
+        //$translateProvider.useSanitizeValueStrategy('sanitizer');
+    }]);
+
+
+    //Run phase
+    //Config angular-translate
+    angular.module('test').run(['$translate', 'tmhDynamicLocale', function ($translate, tmhDynamicLocale) {
+        tmhDynamicLocale.set($translate.preferredLanguage());
+        //$translateProvider.preferredLanguage('en');
+        //$translateProvider.useSanitizeValueStrategy('sanitizer');
     }]);
 
 
@@ -45,10 +62,10 @@
 
 
     //Controller
-    var testCtrl = ['$scope', '$translate', function ($scope, $translate) {
+    var testCtrl = ['$scope', '$translate', 'thmDynamicLocale', function ($scope, $translate, thmDynamicLocale) {
 
         //Switch language at runtime
-        var switchLang = 'en';
+        var switchLang = 'es';
         $scope.switchLang = function () {
             switch (switchLang) {
                 case 'en':
@@ -59,13 +76,14 @@
                     switchLang = 'en';
             }
 
-            window.console.log('Changed language to: ', switchLang);
+            //window.console.log('Changed language to: ', switchLang);
             $translate.use(switchLang);
+            thmDynamicLocale.set(switchLang);
         };
 
         $translate(['HELLO', 'BANG']).then(
                 function (translations) {
-                    window.console.log(translations.BANG);
+                    //window.console.log(translations.BANG);
                     $scope.example = translations.BANG;
                 }
         )
