@@ -48,7 +48,7 @@
     }]);
 
 
-    /*
+    //*
     //Run phase
     //Config angular-translate
     angular.module('test').run(['$translate', 'tmhDynamicLocale', function ($translate, tmhDynamicLocale) {
@@ -63,7 +63,7 @@
 
 
     //Controller
-    var testCtrl = ['$scope', '$translate', 'thmDynamicLocale', function ($scope, $translate, thmDynamicLocale) {
+    var testCtrl = ['$scope', '$translate', 'tmhDynamicLocale', function ($scope, $translate, tmhDynamicLocale) {
 
         //Switch language at runtime
         var switchLang = 'es';
@@ -79,15 +79,19 @@
 
             //window.console.log('Changed language to: ', switchLang);
             $translate.use(switchLang);
-            thmDynamicLocale.set(switchLang);
+            tmhDynamicLocale.set(switchLang);
+            $scope.servTranslate();
         };
 
-        $translate(['HELLO', 'BANG']).then(
-                function (translations) {
-                    //window.console.log(translations.BANG);
-                    $scope.example = translations.BANG;
-                }
-        )
+        //Translate as a service
+        ($scope.servTranslate = function () {
+            $translate(['HELLO', 'BANG']).then(
+                    function (translations) {
+                        //window.console.log(translations.BANG);
+                        $scope.example = translations.BANG;
+                    }
+            )
+        })();
 
     }];
     angular.module('test').controller('testCtrl', testCtrl);
